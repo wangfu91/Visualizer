@@ -17,6 +17,7 @@ using Windows.UI.Xaml;
 using Prism.Commands;
 using Prism.Mvvm;
 using Visualizer.UI.DSP;
+using Visualizer.UI.Spectrum;
 
 namespace Visualizer.UI
 {

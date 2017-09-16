@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Windows.Storage;
+using Visualizer.UI.Spectrum;
 
 namespace Visualizer.UI
 {

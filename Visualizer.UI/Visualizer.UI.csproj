@@ -97,23 +97,23 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AudioGraphProvider.cs" />
-    <Compile Include="BasicSpectrumProvider.cs" />
+    <Compile Include="Spectrum\BasicSpectrumProvider.cs" />
     <Compile Include="DSP\Complex.cs" />
     <Compile Include="DSP\FastFourierTransformation.cs" />
     <Compile Include="DSP\FftMode.cs" />
     <Compile Include="DSP\FftProvider.cs" />
     <Compile Include="DSP\FftSize.cs" />
-    <Compile Include="Extensoins.cs" />
+    <Compile Include="Spectrum\Extensoins.cs" />
     <Compile Include="IAudioProvider.cs" />
     <Compile Include="IMemoryBufferByteAccess.cs" />
-    <Compile Include="ISpectrumProvider.cs" />
-    <Compile Include="LineSpectrum.cs" />
+    <Compile Include="Spectrum\ISpectrumProvider.cs" />
+    <Compile Include="Spectrum\LineSpectrum.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScalingStrategy.cs" />
-    <Compile Include="SpectrumBase.cs" />
+    <Compile Include="Spectrum\ScalingStrategy.cs" />
+    <Compile Include="Spectrum\SpectrumBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
