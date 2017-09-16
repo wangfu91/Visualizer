@@ -220,7 +220,7 @@ namespace Visualizer.UI
             Debug.WriteLine($"SamplesPerQuantum: {_audioGraph.SamplesPerQuantum}");
             Debug.WriteLine($"LatencyInSamples: {_audioGraph.LatencyInSamples}");
             var channelCount = (int)_audioGraph.EncodingProperties.ChannelCount;
-            _spectrumProvider = new BasicSpectrumProvider(channelCount, 44100, FftSize.Fft2048);
+            _spectrumProvider = new BasicSpectrumProvider(channelCount, (int)_audioGraph.EncodingProperties.SampleRate, FftSize.Fft4096);
             _audioGraph.Start();
             IsPlaying = true;
         }
@@ -229,10 +229,6 @@ namespace Visualizer.UI
         {
             var frame = _frameOutputNode.GetFrame();
             ProcessFrameOutput(frame);
-            //Debug.WriteLine($"\t peek = {peek:R}");
-            //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-            //    CoreDispatcherPriority.Normal,
-            //    () => CurrentVolumePeek = peek * 100);
         }
 
         private unsafe void ProcessFrameOutput(AudioFrame frame)
@@ -241,15 +237,11 @@ namespace Visualizer.UI
             using (var reference = buffer.CreateReference())
             {
                 // Get hold of the buffer pointer.
-                byte* dataInBytes;
-                uint capacityInBytes;
-                ((IMemoryBufferByteAccess)reference).GetBuffer(
-                    out dataInBytes, out capacityInBytes);
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out var dataInBytes, out var capacityInBytes);
                 var dataInFloat = (float*)dataInBytes;
                 for (var n = 0; n + 1 < _audioGraph.SamplesPerQuantum; n++)
                 {
                     SpectrumProvider.Add(dataInFloat[n], dataInFloat[n++]);
-                    //max = Math.Max(Math.Abs(dataInFloat[n]), max);
                 }
             }
         }
@@ -329,7 +321,7 @@ namespace Visualizer.UI
 
             var fftSize = (int)SpectrumProvider.FftSize;
             var f = _audioGraph.EncodingProperties.SampleRate / 2.0;
-            return (int)((frequency / f) * (fftSize / 2.0));
+            return (int)(frequency / f * (fftSize / 2.0));
         }
 
         #endregion

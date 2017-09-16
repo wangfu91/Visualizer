@@ -4,6 +4,7 @@ using Windows.Foundation;
 using Windows.UI;
 using Microsoft.Graphics.Canvas;
 using Visualizer.UI.DSP;
+using Microsoft.Graphics.Canvas.Brushes;
 
 namespace Visualizer.UI.Spectrum
 {
@@ -79,20 +80,27 @@ namespace Visualizer.UI.Spectrum
         private void CreateSpectrumLineInternal(CanvasDrawingSession ds, float[] fftBuffer, Size size)
         {
             var height = (float)size.Height;
+            var width = (float)size.Width;
             //prepare the fft result for rendering 
             SpectrumPointData[] spectrumPoints = CalculateSpectrumPoints(height, fftBuffer);
 
-            //connect the calculated points with lines
-            for (int i = 0; i < spectrumPoints.Length; i++)
+            using (var brush = CanvasLinearGradientBrush.CreateRainbow(ds, 0))
             {
-                SpectrumPointData p = spectrumPoints[i];
-                int barIndex = p.SpectrumPointIndex;
-                double xCoord = BarSpacing * (barIndex + 1) + (_barWidth * barIndex) + _barWidth / 2;
+                brush.StartPoint = new Vector2(0, height);
+                brush.EndPoint = new Vector2(width, 0);
 
-                var p1 = new Vector2((float)xCoord, height);
-                var p2 = new Vector2((float)xCoord, height - (float)p.Value - 1);
+                //connect the calculated points with lines
+                for (int i = 0; i < spectrumPoints.Length; i++)
+                {
+                    SpectrumPointData p = spectrumPoints[i];
+                    int barIndex = p.SpectrumPointIndex;
+                    double xCoord = BarSpacing * (barIndex + 1) + (_barWidth * barIndex) + _barWidth / 2;
 
-                ds.DrawLine(p1, p2, color: Colors.DarkGreen, strokeWidth: 20.0F);
+                    var p1 = new Vector2((float)xCoord, height);
+                    var p2 = new Vector2((float)xCoord, height - (float)p.Value - 1);
+
+                    ds.DrawLine(p1, p2, brush, strokeWidth: 20.0F);
+                }
             }
         }
 

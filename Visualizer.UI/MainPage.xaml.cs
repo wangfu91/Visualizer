@@ -48,11 +48,10 @@ namespace Visualizer.UI
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (_audioProvider.IsPlaying)
-               _audioProvider.Stop();
-
             var selectedFile = await SelectPlaybackFile();
             _audioProvider.CurrentPlayingFile = selectedFile;
+
+            _audioProvider.Stop();
 
             await _audioProvider.Play();
 
@@ -65,11 +64,10 @@ namespace Visualizer.UI
                 BarCount = 50,
                 BarSpacing = 10,
                 IsXLogScale = false,
-                ScalingStrategy = ScalingStrategy.Sqrt,
+                ScalingStrategy = ScalingStrategy.Linear,
                 MinimumFrequency = 20,
                 MaximumFrequency = 20000
             };
-
         }
 
         private void OnCreateResources(Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
