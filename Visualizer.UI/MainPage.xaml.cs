@@ -79,7 +79,7 @@ namespace Visualizer.UI
         {
             if (_lineSpectrum != null && _audioProvider.IsPlaying)
             {
-                _lineSpectrum.CreateSpectrumLine(sender.Size, args.DrawingSession);
+                _lineSpectrum.CreateSpectrumLine(sender, args.DrawingSession);
             }
         }
 

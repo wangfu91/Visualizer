@@ -5,6 +5,7 @@ using Windows.UI;
 using Microsoft.Graphics.Canvas;
 using Visualizer.UI.DSP;
 using Microsoft.Graphics.Canvas.Brushes;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 
 namespace Visualizer.UI.Spectrum
 {
@@ -63,8 +64,9 @@ namespace Visualizer.UI.Spectrum
             }
         }
 
-        public void CreateSpectrumLine(Size size, CanvasDrawingSession ds)
+        public void CreateSpectrumLine(ICanvasAnimatedControl canvas, CanvasDrawingSession ds)
         {
+            var size = canvas.Size;
             if (!UpdateFrequencyMappingIfNessesary(size))
                 return;
 
@@ -73,22 +75,19 @@ namespace Visualizer.UI.Spectrum
             //get the fft result from the spectrum provider
             if (SpectrumProvider.GetFftData(fftBuffer))
             {
-                CreateSpectrumLineInternal(ds, fftBuffer, size);
+                CreateSpectrumLineInternal(canvas, ds, fftBuffer, size);
             }
         }
 
-        private void CreateSpectrumLineInternal(CanvasDrawingSession ds, float[] fftBuffer, Size size)
+        private void CreateSpectrumLineInternal(ICanvasAnimatedControl canvas, CanvasDrawingSession ds, float[] fftBuffer, Size size)
         {
             var height = (float)size.Height;
             var width = (float)size.Width;
             //prepare the fft result for rendering 
             SpectrumPointData[] spectrumPoints = CalculateSpectrumPoints(height, fftBuffer);
 
-            using (var brush = CanvasLinearGradientBrush.CreateRainbow(ds, 0))
+            using (var brush = new CanvasLinearGradientBrush(canvas, Colors.Green, Colors.Red))
             {
-                brush.StartPoint = new Vector2(0, height);
-                brush.EndPoint = new Vector2(width, 0);
-
                 //connect the calculated points with lines
                 for (int i = 0; i < spectrumPoints.Length; i++)
                 {
@@ -98,6 +97,9 @@ namespace Visualizer.UI.Spectrum
 
                     var p1 = new Vector2((float)xCoord, height);
                     var p2 = new Vector2((float)xCoord, height - (float)p.Value - 1);
+
+                    brush.StartPoint = p1;
+                    brush.EndPoint = new Vector2((float)xCoord, height * 0.2F);
 
                     ds.DrawLine(p1, p2, brush, strokeWidth: 20.0F);
                 }
