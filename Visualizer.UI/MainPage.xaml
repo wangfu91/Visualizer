@@ -5,9 +5,18 @@
     xmlns:local="using:Visualizer.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <StackPanel>
+        <Button Content="Open File" HorizontalAlignment="Left" Margin="100,30,0,0" Click="Button_Click"/>
+            
+        <canvas:CanvasAnimatedControl x:Name="animatedControl" 
+                                      Margin="0,200,0,0"
+                                      Height="500"
+                                      CreateResources="OnCreateResources" Draw="OnDraw" Update="OnUpdate"
+                                      />
+        </StackPanel>
     </Grid>
 </Page>

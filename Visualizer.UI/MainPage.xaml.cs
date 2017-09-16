@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -12,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Visualizer.UI.DSP;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -22,9 +28,82 @@ namespace Visualizer.UI
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private LineSpectrum _lineSpectrum;
+
+        private readonly AudioGraphProvider _audioProvider;
+
+        private const FftSize FftSize = DSP.FftSize.Fft4096;
+
+
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            animatedControl.ClearColor = Colors.Transparent;
+            animatedControl.TargetElapsedTime = TimeSpan.FromMilliseconds(40); // Make sure there are at least 24 frame per second.
+            _audioProvider = new AudioGraphProvider();
+
         }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (_audioProvider.IsPlaying)
+               _audioProvider.Stop();
+
+            var selectedFile = await SelectPlaybackFile();
+            _audioProvider.CurrentPlayingFile = selectedFile;
+
+            await _audioProvider.Play();
+
+            //linespectrum and voiceprint3dspectrum used for rendering some fft data
+            //in oder to get some fft data, set the previously created spectrumprovider 
+            _lineSpectrum = new LineSpectrum(FftSize)
+            {
+                SpectrumProvider = _audioProvider.SpectrumProvider,
+                UseAverage = true,
+                BarCount = 50,
+                BarSpacing = 10,
+                IsXLogScale = false,
+                ScalingStrategy = ScalingStrategy.Sqrt,
+                MinimumFrequency = 20,
+                MaximumFrequency = 20000
+            };
+
+        }
+
+        private void OnCreateResources(Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
+        {
+
+        }
+
+        private void OnDraw(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs args)
+        {
+            if (_lineSpectrum != null && _audioProvider.IsPlaying)
+            {
+                _lineSpectrum.CreateSpectrumLine(sender.Size, args.DrawingSession);
+            }
+        }
+
+        private void OnUpdate(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedUpdateEventArgs args)
+        {
+
+        }
+
+        private async Task<IStorageFile> SelectPlaybackFile()
+        {
+            var picker = new FileOpenPicker
+            {
+                ViewMode = PickerViewMode.List,
+                SuggestedStartLocation = PickerLocationId.MusicLibrary
+            };
+            picker.FileTypeFilter.Add(".mp3");
+            picker.FileTypeFilter.Add(".aac");
+            picker.FileTypeFilter.Add(".wav");
+
+            var file = await picker.PickSingleFileAsync();
+            return file;
+        }
+
+
     }
 }
