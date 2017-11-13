@@ -94,19 +94,39 @@ namespace Visualizer.UI.Spectrum
                     SpectrumPointData p = spectrumPoints[i];
                     int barIndex = p.SpectrumPointIndex;
 
-                    double xCoord = BarSpacing * (barIndex + 1) + (_barWidth * barIndex) + _barWidth / 2;
+                    double xCoord = (BarSpacing * (barIndex + 1) + (_barWidth * barIndex) + _barWidth / 2) /2;
 
-                    var p0 = new Vector2((float) xCoord, height / 2);
-                    brush.StartPoint = p0;
+                    {
+                        float xCoordRight = width / 2 + (float)xCoord;
 
-                    var pUp = new Vector2((float) xCoord, height / 2 - (float) p.Value);
-                    var pDown= new Vector2((float) xCoord, height / 2 + (float) p.Value);
+                        var pRight = new Vector2(xCoordRight, height / 2);
+                        brush.StartPoint = pRight;
 
-                    brush.EndPoint = new Vector2((float) xCoord, 0);
-                    ds.DrawLine(p0, pUp, brush, (float) _barWidth);
+                        var pRightUp = new Vector2(xCoordRight, height / 2 - (float) p.Value);
+                        var pRightDown = new Vector2(xCoordRight, height / 2 + (float) p.Value);
 
-                    brush.EndPoint = new Vector2((float)xCoord, height);
-                    ds.DrawLine(p0, pDown, brush, (float) _barWidth);
+                        brush.EndPoint = new Vector2(xCoordRight, 0);
+                        ds.DrawLine(pRight, pRightUp, brush, (float) _barWidth);
+
+                        brush.EndPoint = new Vector2(xCoordRight, height);
+                        ds.DrawLine(pRight, pRightDown, brush, (float)_barWidth);
+                    }
+
+                    {
+                        float xCoordLeft = width / 2 - (float)xCoord;
+
+                        var pLeft = new Vector2(xCoordLeft, height / 2);
+                        brush.StartPoint = pLeft;
+
+                        var pRightUp = new Vector2(xCoordLeft, height / 2 - (float)p.Value);
+                        var pRightDown = new Vector2(xCoordLeft, height / 2 + (float)p.Value);
+
+                        brush.EndPoint = new Vector2(xCoordLeft, 0);
+                        ds.DrawLine(pLeft, pRightUp, brush, (float)_barWidth);
+
+                        brush.EndPoint = new Vector2(xCoordLeft, height);
+                        ds.DrawLine(pLeft, pRightDown, brush, (float)_barWidth);
+                    }
                 }
             }
         }

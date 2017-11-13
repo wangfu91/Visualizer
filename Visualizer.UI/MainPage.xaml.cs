@@ -63,9 +63,9 @@ namespace Visualizer.UI
             {
                 SpectrumProvider = _audioProvider,
                 UseAverage = true,
-                BarCount = 50,
-                BarSpacing = 2,
-                IsXLogScale = true,
+                BarCount = 19980,
+                BarSpacing = 0,
+                IsXLogScale = false,
                 ScalingStrategy = ScalingStrategy.Sqrt,
                 MinimumFrequency = 20,
                 MaximumFrequency = 20000
