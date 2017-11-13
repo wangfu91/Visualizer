@@ -84,7 +84,7 @@ namespace Visualizer.UI.Spectrum
             var height = (float)size.Height;
             var width = (float)size.Width;
             //prepare the fft result for rendering 
-            SpectrumPointData[] spectrumPoints = CalculateSpectrumPoints(height, fftBuffer);
+            SpectrumPointData[] spectrumPoints = CalculateSpectrumPoints(height / 2, fftBuffer);
 
             using (var brush = new CanvasLinearGradientBrush(canvas, Colors.Green, Colors.Red))
             {
@@ -93,15 +93,20 @@ namespace Visualizer.UI.Spectrum
                 {
                     SpectrumPointData p = spectrumPoints[i];
                     int barIndex = p.SpectrumPointIndex;
+
                     double xCoord = BarSpacing * (barIndex + 1) + (_barWidth * barIndex) + _barWidth / 2;
 
-                    var p1 = new Vector2((float)xCoord, height);
-                    var p2 = new Vector2((float)xCoord, height - (float)p.Value - 1);
+                    var p0 = new Vector2((float) xCoord, height / 2);
+                    brush.StartPoint = p0;
 
-                    brush.StartPoint = p1;
-                    brush.EndPoint = new Vector2((float)xCoord, height * 0.2F);
+                    var pUp = new Vector2((float) xCoord, height / 2 - (float) p.Value);
+                    var pDown= new Vector2((float) xCoord, height / 2 + (float) p.Value);
 
-                    ds.DrawLine(p1, p2, brush, strokeWidth: 20.0F);
+                    brush.EndPoint = new Vector2((float) xCoord, 0);
+                    ds.DrawLine(p0, pUp, brush, (float) _barWidth);
+
+                    brush.EndPoint = new Vector2((float)xCoord, height);
+                    ds.DrawLine(p0, pDown, brush, (float) _barWidth);
                 }
             }
         }

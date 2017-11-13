@@ -121,7 +121,7 @@ namespace Visualizer.UI
         public bool IsPlaying
         {
             get { return _isPlaying; }
-            private set { SetProperty(ref _isPlaying, value); }
+            set { SetProperty(ref _isPlaying, value); }
         }
 
         public BasicSpectrumProvider SpectrumProvider
@@ -239,9 +239,9 @@ namespace Visualizer.UI
                 // Get hold of the buffer pointer.
                 ((IMemoryBufferByteAccess)reference).GetBuffer(out var dataInBytes, out var capacityInBytes);
                 var dataInFloat = (float*)dataInBytes;
-                for (var n = 0; n + 1 < _audioGraph.SamplesPerQuantum; n++)
+                for (var n = 0; n < _audioGraph.SamplesPerQuantum; n += 2)
                 {
-                    SpectrumProvider.Add(dataInFloat[n], dataInFloat[n++]);
+                    SpectrumProvider.Add(dataInFloat[n], dataInFloat[n + 1]);
                 }
             }
         }
@@ -257,7 +257,7 @@ namespace Visualizer.UI
             SelectedDevice = Devices.FirstOrDefault(d => d.IsDefault);
         }
 
-        private void Pause()
+        public void Pause()
         {
             _audioGraph?.Stop();
             IsPlaying = false;

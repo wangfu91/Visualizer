@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Visualizer.UI.Spectrum;
@@ -22,5 +23,14 @@ namespace Visualizer.UI
         ICommand PauseCommand { get; }
 
         IStorageFile CurrentPlayingFile { get; set; }
+
+        void Stop();
+
+        void Pause();
+
+        Task Play();
+
+        bool IsPlaying { get; set; }
+
     }
 }

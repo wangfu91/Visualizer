@@ -31,9 +31,11 @@ namespace Visualizer.UI
     {
         private LineSpectrum _lineSpectrum;
 
-        private readonly AudioGraphProvider _audioProvider;
+        private IAudioProvider _audioProvider;
 
         private const FftSize FftSize = DSP.FftSize.Fft4096;
+
+
 
 
         public MainPage()
@@ -41,17 +43,17 @@ namespace Visualizer.UI
             InitializeComponent();
 
             animatedControl.ClearColor = Colors.Transparent;
-            animatedControl.TargetElapsedTime = TimeSpan.FromMilliseconds(40); // Make sure there are at least 24 frame per second.
-            _audioProvider = new AudioGraphProvider();
-
+            animatedControl.TargetElapsedTime = TimeSpan.FromMilliseconds(16); // Make sure there are at least 60 frame per second.
+            _audioProvider = new BassAudioPlayer();
+            //_audioProvider = new AudioGraphProvider();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            var selectedFile = await SelectPlaybackFile();
-            _audioProvider.CurrentPlayingFile = selectedFile;
+            _audioProvider.CurrentPlayingFile = await SelectPlaybackFile();
 
-            _audioProvider.Stop();
+            if (_audioProvider.IsPlaying)
+                _audioProvider.Stop();
 
             await _audioProvider.Play();
 
@@ -59,12 +61,12 @@ namespace Visualizer.UI
             //in oder to get some fft data, set the previously created spectrumprovider 
             _lineSpectrum = new LineSpectrum(FftSize)
             {
-                SpectrumProvider = _audioProvider.SpectrumProvider,
+                SpectrumProvider = _audioProvider,
                 UseAverage = true,
                 BarCount = 50,
-                BarSpacing = 10,
-                IsXLogScale = false,
-                ScalingStrategy = ScalingStrategy.Linear,
+                BarSpacing = 2,
+                IsXLogScale = true,
+                ScalingStrategy = ScalingStrategy.Sqrt,
                 MinimumFrequency = 20,
                 MaximumFrequency = 20000
             };
