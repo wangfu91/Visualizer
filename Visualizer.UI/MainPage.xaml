@@ -13,7 +13,7 @@
         <Button Content="Open File" HorizontalAlignment="Left" Margin="100,30,0,0" Click="Button_Click"/>
             
         <canvas:CanvasAnimatedControl x:Name="animatedControl" 
-                                      Margin="0,200,0,0"
+                                      Margin="0,30,0,0"
                                       Height="500"
                                       CreateResources="OnCreateResources" Draw="OnDraw" Update="OnUpdate"
                                       />

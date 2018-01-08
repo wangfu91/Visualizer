@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Visualizer.UI.DSP
 {
     /// <summary>
     /// Provides FFT calculations.
     /// </summary>
+    /// <remarks>
+    /// Usage: Use the <see cref="Add(float[],int)"/>-method to input samples to the <see cref="FftProvider"/>. Use the <see cref="GetFftData(float[])"/> method to 
+    /// calculate the Fast Fourier Transform.
+    /// </remarks>
     public class FftProvider
     {
         private readonly int _channels;
@@ -95,7 +95,6 @@ namespace Visualizer.UI.DSP
             _newDataAvailable = count > 0;
         }
 
-
         /// <summary>
         /// Calculates the Fast Fourier Transform and stores the result in the <paramref name="fftResultBuffer"/>.
         /// </summary>
@@ -115,7 +114,6 @@ namespace Visualizer.UI.DSP
 
             return result;
         }
-
         /// <summary>
         /// Calculates the Fast Fourier Transform and stores the result in the <paramref name="fftResultBuffer"/>.
         /// </summary>
@@ -127,7 +125,7 @@ namespace Visualizer.UI.DSP
                 throw new ArgumentNullException(nameof(fftResultBuffer));
 
             if (fftResultBuffer.Length < (int)_fftSize)
-                throw new ArgumentException("Length of array must be at least as long as the specified fft size.", "fftResultBuffer");
+                throw new ArgumentException("Length of array must be at least as long as the specified fft size.", nameof(fftResultBuffer));
             var input = new Complex[(int)_fftSize];
 
             var result = _newDataAvailable;
@@ -167,7 +165,6 @@ namespace Visualizer.UI.DSP
             }
             return sample / channels;
         }
-
     }
 
 }

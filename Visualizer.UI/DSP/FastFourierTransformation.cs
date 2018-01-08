@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Visualizer.UI.DSP
 {
@@ -12,6 +8,38 @@ namespace Visualizer.UI.DSP
     /// </summary>
     public static class FastFourierTransformation
     {
+        /// <summary>
+        /// Implementation of the Hamming Window using double-precision floating-point numbers.
+        /// </summary>
+        /// <param name="n">Current n of the input signal.</param>
+        /// <param name="N">Window width</param>
+        /// <returns>Hamming Window multiplier.</returns>
+// ReSharper disable once InconsistentNaming
+        public static double HammingWindow(int n, int N)
+        {
+            //according to Wikipedia we could also use alpha=0.53836 and beta=0.46164
+            const double alpha = 0.54;
+            const double beta = 0.46;
+            return alpha - beta * Math.Cos((2 * Math.PI * n) / (N - 1));
+        }
+
+
+        /// <summary>
+        /// Hamming window implementation using single-precision floating-point numbers.
+        /// </summary>
+        /// <param name="n">Current n of the input signal.</param>
+        /// <param name="N">Window width.</param>
+        /// <returns>Hamming Window multiplier.</returns>
+// ReSharper disable once InconsistentNaming
+        public static float HammingWindowF(int n, int N)
+        {
+            //according to Wikipedia we could also use alpha=0.53836 and beta=0.46164
+            const float alpha = 0.54f;
+            const float beta = 0.46f;
+            return alpha - beta * (float)Math.Cos((2 * Math.PI * n) / (N - 1));
+        }
+
+
         /// <summary>
         /// Compute an Fast Fourier Trasform.
         /// </summary>
@@ -111,7 +139,6 @@ namespace Visualizer.UI.DSP
                 z += 1;
             }
         }
-
 
         private static void Swap(Complex[] data, int index, int index2)
         {

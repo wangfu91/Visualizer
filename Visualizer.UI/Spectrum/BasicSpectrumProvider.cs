@@ -16,7 +16,7 @@ namespace Visualizer.UI.Spectrum
             : base(channels, fftSize)
         {
             if (sampleRate <= 0)
-                throw new ArgumentOutOfRangeException("sampleRate");
+                throw new ArgumentOutOfRangeException(nameof(sampleRate));
             _sampleRate = sampleRate;
         }
 

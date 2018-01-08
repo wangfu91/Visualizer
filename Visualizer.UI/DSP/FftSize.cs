@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Visualizer.UI.DSP
+﻿namespace Visualizer.UI.DSP
 {
     /// <summary>
     ///     Defines FFT data size constants that can be used for FFT calculations.

@@ -93,7 +93,7 @@ namespace Visualizer.UI
 
         public bool GetFftData(float[] fftDataBuffer)
         {
-            return Bass.ChannelGetData(_handle, fftDataBuffer, (int)(DataFlags.Available | DataFlags.FFT4096)) > 0;
+            return Bass.ChannelGetData(_handle, fftDataBuffer, (int)DataFlags.FFT4096) > 0;
         }
 
         public int GetFftFrequencyIndex(int frequency)
