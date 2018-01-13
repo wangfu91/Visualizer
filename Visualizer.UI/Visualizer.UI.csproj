@@ -174,13 +174,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ManagedBass">
-      <Version>2.0.3</Version>
+      <Version>2.0.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.1</Version>
+      <Version>6.0.6</Version>
     </PackageReference>
     <PackageReference Include="Prism.Core">
-      <Version>6.3.0</Version>
+      <Version>7.0.0.362</Version>
     </PackageReference>
     <PackageReference Include="Win2D.uwp">
       <Version>1.21.0</Version>

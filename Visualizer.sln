@@ -1,32 +1,52 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27102.0
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer.UI", "Visualizer.UI\Visualizer.UI.csproj", "{7E4C1E2B-019F-444F-886A-072077172692}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|ARM = Debug|ARM
+		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
+		Ad-Hoc|x64 = Ad-Hoc|x64
+		Ad-Hoc|x86 = Ad-Hoc|x86
+		AppStore|Any CPU = AppStore|Any CPU
+		AppStore|x64 = AppStore|x64
+		AppStore|x86 = AppStore|x86
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|ARM = Release|ARM
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|ARM.ActiveCfg = Debug|ARM
-		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|ARM.Build.0 = Debug|ARM
-		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|ARM.Deploy.0 = Debug|ARM
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|Any CPU.ActiveCfg = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|Any CPU.Build.0 = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|Any CPU.Deploy.0 = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|x64.ActiveCfg = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|x64.Build.0 = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|x64.Deploy.0 = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|x86.ActiveCfg = Release|x86
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|x86.Build.0 = Release|x86
+		{7E4C1E2B-019F-444F-886A-072077172692}.Ad-Hoc|x86.Deploy.0 = Release|x86
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|Any CPU.ActiveCfg = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|Any CPU.Build.0 = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|Any CPU.Deploy.0 = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|x64.ActiveCfg = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|x64.Build.0 = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|x64.Deploy.0 = Release|x64
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|x86.ActiveCfg = Release|x86
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|x86.Build.0 = Release|x86
+		{7E4C1E2B-019F-444F-886A-072077172692}.AppStore|x86.Deploy.0 = Release|x86
+		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|x64.ActiveCfg = Debug|x64
 		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|x64.Build.0 = Debug|x64
 		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|x64.Deploy.0 = Debug|x64
 		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|x86.ActiveCfg = Debug|x86
 		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|x86.Build.0 = Debug|x86
 		{7E4C1E2B-019F-444F-886A-072077172692}.Debug|x86.Deploy.0 = Debug|x86
-		{7E4C1E2B-019F-444F-886A-072077172692}.Release|ARM.ActiveCfg = Release|ARM
-		{7E4C1E2B-019F-444F-886A-072077172692}.Release|ARM.Build.0 = Release|ARM
-		{7E4C1E2B-019F-444F-886A-072077172692}.Release|ARM.Deploy.0 = Release|ARM
+		{7E4C1E2B-019F-444F-886A-072077172692}.Release|Any CPU.ActiveCfg = Release|x86
 		{7E4C1E2B-019F-444F-886A-072077172692}.Release|x64.ActiveCfg = Release|x64
 		{7E4C1E2B-019F-444F-886A-072077172692}.Release|x64.Build.0 = Release|x64
 		{7E4C1E2B-019F-444F-886A-072077172692}.Release|x64.Deploy.0 = Release|x64
@@ -38,6 +58,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {563CAC00-5938-43FA-8526-7A5D513CBC41}
+		SolutionGuid = {F6D05029-56B8-4E45-AF2D-0E76295DDBA2}
 	EndGlobalSection
 EndGlobal
